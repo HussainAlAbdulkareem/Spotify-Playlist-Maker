@@ -15,7 +15,7 @@ song_tags = soup.select(selector="li ul li h3")
 songs = [song_tag.getText().strip() for song_tag in song_tags]
 print(songs)
 
-auth = spotipy.oauth2.SpotifyOAuth(client_id=os.getenv("CLIENT_ID"), client_secret=os.getenv("CLIENT_SECRET"), redirect_uri="http://example.com")
+auth = spotipy.oauth2.SpotifyOAuth(client_id=os.getenv("CLIENT_ID"), client_secret=os.getenv("CLIENT_SECRET"), redirect_uri="http://example.com", scope= "playlist-modify-private", username=os.getenv("USER_NAME"))
 token = auth.get_access_token()["access_token"]
 
 sp = spotipy.Spotify(auth=token)
@@ -29,3 +29,5 @@ for song in songs:
     except IndexError:
         print(f"{song} was not found.")
 
+create_playlist = sp.user_playlist_create(user=user_id, name=f"{date} Top 100 Songs", public=False)
+playlist_id = create_playlist["id"]
