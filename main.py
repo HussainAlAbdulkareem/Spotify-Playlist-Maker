@@ -24,4 +24,8 @@ user_id = sp.current_user()["id"]
 songs_uris = []
 for song in songs:
     song_uri = sp.search(q=f"track:{song} year:{date[:4]}/", type="track")
-    songs_uris.append(song_uri["tracks"]["items"][0]["uri"])
+    try:
+        songs_uris.append(song_uri["tracks"]["items"][0]["uri"])
+    except IndexError:
+        print(f"{song} was not found.")
+
