@@ -31,3 +31,5 @@ for song in songs:
 
 create_playlist = sp.user_playlist_create(user=user_id, name=f"{date} Top 100 Songs", public=False)
 playlist_id = create_playlist["id"]
+
+sp.playlist_add_items(playlist_id=playlist_id, items=songs_uris)
